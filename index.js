@@ -1,15 +1,17 @@
 const express = require("express");
+const cors = require("cors");
 const app = express();
 const setupDatabase = require("./config/database");
 const books = require("./models/books");
 app.use(express.json());
+app.use(cors());
 setupDatabase();
 
 app.get("/get-books", async (req, res) => {
-  const data = await books.find();
+  const dataBooks = await books.find();
   res.send({
     message: "success",
-    data,
+    dataBooks,
   });
 });
 
@@ -31,6 +33,6 @@ app.post("/create-book", async (req, res) => {
   }
 });
 
-app.listen(3000, () => {
-  console.log(`app is listening to port 3000`);
+app.listen(3001, () => {
+  console.log(`app is listening to port 3001`);
 });
